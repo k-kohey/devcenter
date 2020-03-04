@@ -1,0 +1,3190 @@
+
+
+
+
+<html lang="en">
+  <!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Using the Trigger Map to trigger builds | Bitrise DevCenter</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Using the Trigger Map to trigger builds" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="The trigger map defined in the bitrise.yml file of your app determines which workflows get triggered by specific events, for example code pushes or pull requests." />
+<meta property="og:description" content="The trigger map defined in the bitrise.yml file of your app determines which workflows get triggered by specific events, for example code pushes or pull requests." />
+<link rel="canonical" href="https://devcenter.bitrise.io/builds/triggering-builds/trigger-map/" />
+<meta property="og:url" content="https://devcenter.bitrise.io/builds/triggering-builds/trigger-map/" />
+<meta property="og:site_name" content="Bitrise DevCenter" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-04T13:53:07+00:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://devcenter.bitrise.io/builds/triggering-builds/trigger-map/"},"headline":"Using the Trigger Map to trigger builds","dateModified":"2020-03-04T13:53:07+00:00","datePublished":"2020-03-04T13:53:07+00:00","url":"https://devcenter.bitrise.io/builds/triggering-builds/trigger-map/","description":"The trigger map defined in the bitrise.yml file of your app determines which workflows get triggered by specific events, for example code pushes or pull requests.","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-53276411-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-53276411-1');
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TZK32GR');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      
+        Using the Trigger Map to trigger builds - Bitrise Docs
+      
+    </title>
+    
+    <meta property="og:title" content="Bitrise Docs" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://devcenter.bitrise.io/" />
+    <meta property="og:site_name" content="Bitrise Docs" />
+    <meta name="theme-color" content="#7e57c2" />
+    
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="/favicon.svg" color="#3bc3a3" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-76x76.png" type="image/png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-120x120.png" type="image/png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-152x152.png" type="image/png" sizes="152x152" />
+    <link rel="canonical" href="https://devcenter.bitrise.io/" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/search.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/Bitrise_font.css">
+  </head>
+  <body class="mdc-typography">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZK32GR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <header class="top-bar">
+      <div class="middle-aligner">
+        <div class="subgroup">
+          <a class="logo" href="/"><img src="/assets/images/bitrise-docs-logo-white.svg"/></a>
+          <button class="burger material-icon" onclick="toggleSideBar()"></button>
+        </div>
+        <div class="search-bar">
+          <div class="input-wrapper">
+            <label class="search-icon material-icon"></label>
+            <input type="text" id="search-input" placeholder="Search" />
+            <button class="search-clear material-icon" onclick="clearSearchField()"></button>
+          </div>
+        </div>
+        <div class="lang-selector">
+            <a href="/builds/triggering-builds/trigger-map/" class="active" hreflang="en">EN</a>
+            <a href="/jp/builds/triggering-builds/trigger-map/" class= hreflang="ja">日本語</a>
+        </div>
+        <a class="source-code" href="https://github.com/bitrise-io/devcenter/" target="_blank">
+          <object type="image/svg+xml" data="/assets/logos/icons-docs/github.svg" class="source-host-logo"></object>
+          <span class="source-host-name">GitHub</span>
+        </a>
+        <div class="cta">
+          <a target="_blank" href="https://app.bitrise.io/users/sign_up?utm_source=devcenter&utm_medium=top_cta">
+            <button class="bitbutton">
+              <span class="sign-up">Sign up for Bitrise</span>
+            </button>
+          </a>
+         </div>
+       </div>
+    </header>
+    <div class="column-parent middle-aligner main-layout-wrapper">
+      <nav id="side-menu">
+        <div class="menu-wrapper">
+           
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-1" onclick="toggleMenuListOpener(event)" href="/contributors/contributors-index/" hreflang="en">For contributors</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/contributors/create-your-own-step/" title="Developing a new Step " hreflang="en">Developing a new Step </a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/contributors/testing-and-versioning-your-steps/" title="Testing and versioning your Steps " hreflang="en">Testing and versioning your Steps </a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/contributors/sharing-steps-with-all-bitrise-users/" title="Sharing your Steps with all Bitrise users" hreflang="en">Sharing your Steps with all Bitrise users</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/contributors/creating-your-own-bitrise-project-scanner/" title="Creating your own Bitrise project scanner" hreflang="en">Creating your own Bitrise project scanner</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-2" onclick="toggleMenuListOpener(event)" href="/getting-started/index/" hreflang="en">Getting started</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/signing-up-to-bitrise/" title="Signing up to Bitrise" hreflang="en">Signing up to Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/adding-a-new-app/" title="Adding a new app on the website" hreflang="en">Adding a new app on the website</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/adding-an-app-from-a-cli/" title="Adding a new app from a CLI" hreflang="en">Adding a new app from a CLI</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/connecting-account-bitrise/" title="Connecting your GitHub/GitLab/Bitbucket account" hreflang="en">Connecting your GitHub/GitLab/Bitbucket account</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/connecting-apple-dev-account/" title="Connecting your Apple Developer Account" hreflang="en">Connecting your Apple Developer Account</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/self-hosted-gitlab/" title="Connecting self-hosted GitLab instances" hreflang="en">Connecting self-hosted GitLab instances</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/code-security/" title="Code security" hreflang="en">Code security</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/account-security/" title="Account security" hreflang="en">Account security</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/public-apps/" title="Public apps for open source projects" hreflang="en">Public apps for open source projects</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/managing-files-on-bitrise/" title="Managing files on Bitrise" hreflang="en">Managing files on Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-ios-apps/" title="Getting started with iOS apps" hreflang="en">Getting started with iOS apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-android-apps/" title="Getting started with Android apps" hreflang="en">Getting started with Android apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-react-native-apps/" title="Getting started with React Native apps" hreflang="en">Getting started with React Native apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-flutter-apps/" title="Getting started with Flutter apps" hreflang="en">Getting started with Flutter apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-xamarin-apps/" title="Getting started with Xamarin apps" hreflang="en">Getting started with Xamarin apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-ionic-cordova-apps/" title="Getting started with Ionic/Cordova apps" hreflang="en">Getting started with Ionic/Cordova apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-macos-apps/" title="Getting started with MacOS apps" hreflang="en">Getting started with MacOS apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/getting-started-with-expo-apps/" title="Getting started with Expo apps" hreflang="en">Getting started with Expo apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/getting-started/bitrise-tools/" title="Bitrise tools" hreflang="en">Bitrise tools</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-3" onclick="toggleMenuListOpener(event)" href="/infrastructure/infrastructure-index/" hreflang="en">Infrastructure</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/infrastructure/available-stacks/" title="Available stacks" hreflang="en">Available stacks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/infrastructure/stack-update-and-removal-policy/" title="Stack update and removal policy " hreflang="en">Stack update and removal policy </a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/infrastructure/virtual-machines/" title="Virtual machines" hreflang="en">Virtual machines</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/infrastructure/the-environment/" title="The Android/Linux/Docker environment" hreflang="en">The Android/Linux/Docker environment</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/infrastructure/customisable-enterprise-build-platforms/" title="Customizable enterprise build platforms" hreflang="en">Customizable enterprise build platforms</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-4" onclick="toggleMenuListOpener(event)" href="/team-management/teams-vs-organizations-index/" hreflang="en">Teams and organizations</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/adding-new-team-member/" title="Adding a new team member" hreflang="en">Adding a new team member</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/user-roles-on-app-teams/" title="User roles on app teams" hreflang="en">User roles on app teams</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/changing-the-owner-of-an-app/" title="Changing the owner of an app" hreflang="en">Changing the owner of an app</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/team-management/organizations/organizations-index/" hreflang="en">Organizations</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/creating-org/" title="Creating organizations" hreflang="en">Creating organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/managing-billing-sub/" title="Managing billing and subscription for organizations" hreflang="en">Managing billing and subscription for organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/managing-invoices/" title="Managing the invoices of your organizations" hreflang="en">Managing the invoices of your organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/members-organizations/" title="Managing organization members" hreflang="en">Managing organization members</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/managing-apps/" title="Managing the apps of organizations" hreflang="en">Managing the apps of organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/org-ownership/" title="Changing the owners of an organization" hreflang="en">Changing the owners of an organization</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/org-url/" title="Finding the URL of your organizations" hreflang="en">Finding the URL of your organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/saml-sso-in-organizations/" title="SAML SSO in organizations" hreflang="en">SAML SSO in organizations</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/setting-up-google-sso-for-bitrise/" title="Setting up Google SSO for Bitrise" hreflang="en">Setting up Google SSO for Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/setting-up-azure-ad-sso-for-bitrise/" title="Setting up Azure AD SSO for Bitrise" hreflang="en">Setting up Azure AD SSO for Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/setting-up-okta-sso-for-bitrise/" title="Setting up Okta SSO for Bitrise" hreflang="en">Setting up Okta SSO for Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/setting-up-pingone-saml-sso-for-bitrise/" title="Setting up Ping Identity SSO for Bitrise" hreflang="en">Setting up Ping Identity SSO for Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/team-management/organizations/setting-up-onelogin-sso-for-bitrise/" title="Setting up OneLogin SSO for Bitrise" hreflang="en">Setting up OneLogin SSO for Bitrise</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-5" onclick="toggleMenuListOpener(event)" href="/webhooks/webhooks-index/" hreflang="en">Webhooks</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-webhooks/" title="Adding webhooks" hreflang="en">Adding webhooks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-github-webhook/" title="Adding a GitHub webhook" hreflang="en">Adding a GitHub webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-gitlab-webhook/" title="Adding a Gitlab webhook" hreflang="en">Adding a Gitlab webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-bitbucket-webhook/" title="Adding a Bitbucket webhook" hreflang="en">Adding a Bitbucket webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-gogs-webhook/" title="Adding a Gogs webhook" hreflang="en">Adding a Gogs webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-slack-webhook/" title="Adding a Slack webhook" hreflang="en">Adding a Slack webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-a-visual-studio-webhook/" title="Adding a Visual Studio webhook" hreflang="en">Adding a Visual Studio webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-assembla-webhook/" title="Adding an Assembla webhook" hreflang="en">Adding an Assembla webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-deveo-webhook/" title="Adding a Deveo webhook" hreflang="en">Adding a Deveo webhook</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/adding-outgoing-webhooks/" title="Adding outgoing webhooks" hreflang="en">Adding outgoing webhooks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/webhooks/troubleshooting/" title="Webhook troubleshooting" hreflang="en">Webhook troubleshooting</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-6" onclick="toggleMenuListOpener(event)" href="/steps-and-workflows/steps-and-workflows-index/" hreflang="en">Steps and Workflows</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/getting-started-steps/" title="Introduction to Steps" hreflang="en">Introduction to Steps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/adding-removing-steps/" title="Adding and removing Steps" hreflang="en">Adding and removing Steps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/step-inputs/" title="Step versions and inputs" hreflang="en">Step versions and inputs</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/skipping-steps/" title="Skipping Steps" hreflang="en">Skipping Steps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/disable-a-step-by-condition/" title="Enabling or disabling a Step conditionally" hreflang="en">Enabling or disabling a Step conditionally</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/getting-started-workflows/" title="Introduction to Workflows" hreflang="en">Introduction to Workflows</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/default-workflows/" title="Default Workflows" hreflang="en">Default Workflows</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/creating-workflows/" title="Creating a Workflow" hreflang="en">Creating a Workflow</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/managing-workflows/" title="Managing Workflows" hreflang="en">Managing Workflows</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/steps-and-workflows/copying-workflows-from-one-app-to-another/" title="Copying Workflows from one app to another" hreflang="en">Copying Workflows from one app to another</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-7" onclick="toggleMenuListOpener(event)" href="/builds/builds-index/" hreflang="en">Builds</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/builds/caching/about-caching-index/" hreflang="en">Caching</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/caching/caching-cocoapods/" title="Caching Cocoapods" hreflang="en">Caching Cocoapods</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/caching/caching-gradle/" title="Caching Gradle" hreflang="en">Caching Gradle</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/caching/caching-maven/" title="Caching Maven" hreflang="en">Caching Maven</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/caching/caching-ruby-gems/" title="Caching Ruby Gems" hreflang="en">Caching Ruby Gems</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/caching/caching-homebrew-installers/" title="Caching Homebrew installers" hreflang="en">Caching Homebrew installers</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/builds/triggering-builds/triggering-builds-index/" hreflang="en">Triggering builds</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/trigger-code-push/" title="Triggering builds with code push" hreflang="en">Triggering builds with code push</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/trigger-pull-request/" title="Triggering builds with Pull Requests" hreflang="en">Triggering builds with Pull Requests</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/approving-pull-request-builds/" title="Approving Pull Request builds" hreflang="en">Approving Pull Request builds</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/trigger-git-tags/" title="Triggering builds with Git Tags" hreflang="en">Triggering builds with Git Tags</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/trigger-map/" title="Triggering builds with the Trigger map" class="current" hreflang="en">Triggering builds with the Trigger map</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/trigger-multiple-workflows/" title="Starting parallel builds with a single trigger" hreflang="en">Starting parallel builds with a single trigger</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/skipping-a-given-commit-or-pull-request/" title="Skipping a given commit or Pull Request" hreflang="en">Skipping a given commit or Pull Request</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/triggering-builds/status-reporting/" title="Reporting the build status to your Git hosting provider" hreflang="en">Reporting the build status to your Git hosting provider</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/configuring-notifications/" title="Configuring notifications" hreflang="en">Configuring notifications</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/Starting-builds-manually/" title="Starting builds manually" hreflang="en">Starting builds manually</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/Scheduling-Builds/" title="Scheduling your builds" hreflang="en">Scheduling your builds</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/selective_builds/" title="Selective builds" hreflang="en">Selective builds</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/rolling-builds/" title="Rolling builds" hreflang="en">Rolling builds</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/build-numbering-and-app-versioning/" title="Build numbering and app versioning" hreflang="en">Build numbering and app versioning</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/env-vars-secret-env-vars/" title="Secrets and Env Vars" hreflang="en">Secrets and Env Vars</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/sensitive-input-field/" title="Sensitive input in public apps" hreflang="en">Sensitive input in public apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/build-artifacts-online/" title="Build artifacts online" hreflang="en">Build artifacts online</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/bitrise-yml-online/" title="Accessing the bitrise.yml file online" hreflang="en">Accessing the bitrise.yml file online</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/setting-your-git-credentials-on-build-machines/" title="Setting your Git credentials on build machines" hreflang="en">Setting your Git credentials on build machines</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/available-environment-variables/" title="Available environment variables" hreflang="en">Available environment variables</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/build-logs/" title="Build logs" hreflang="en">Build logs</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/bitrise-checks-on-github-checks/" title="Bitrise Checks on GitHub Checks" hreflang="en">Bitrise Checks on GitHub Checks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/builds/remote-access/" title="Remote access" hreflang="en">Remote access</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-8" onclick="toggleMenuListOpener(event)" href="/code-signing/code-signing-index/" hreflang="en">Code signing</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/code-signing/android-code-signing/android-code-signing-index/" hreflang="en">Android code signing</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/android-code-signing/android-code-signing-using-bitrise-sign-apk-step/" title="Android code signing using Android Sign Step" hreflang="en">Android code signing using Android Sign Step</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/android-code-signing/android-code-signing-with-android-studio/" title="Android code signing with Android Studio" hreflang="en">Android code signing with Android Studio</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/android-code-signing/android-code-signing-in-gradle/" title="Android code signing in Gradle" hreflang="en">Android code signing in Gradle</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/xamarin-android-code-signing/xamarin-android-code-signing/" title="Xamarin Android code signing" hreflang="en">Xamarin Android code signing</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/android-code-signing/downloading-a-keystore-file/" title="Downloading a keystore file" hreflang="en">Downloading a keystore file</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/code-signing/ios-code-signing/code-signing-index/" hreflang="en">iOS code signing</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/collecting-files-with-codesigndoc/" title="Collecting and exporting code signing files with codesigndoc" hreflang="en">Collecting and exporting code signing files with codesigndoc</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/ios-auto-provisioning/" title="Managing iOS code signing files - automatic provisioning" hreflang="en">Managing iOS code signing files - automatic provisioning</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/ios-manual-provisioning/" title="Managing iOS code signing files - manual provisioning" hreflang="en">Managing iOS code signing files - manual provisioning</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/create-signed-ipa-for-xcode/" title="Creating a signed .ipa for Xcode projects" hreflang="en">Creating a signed .ipa for Xcode projects</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/create-signed-ipa-for-xamarin/" title="Creating a signed .ipa for Xamarin apps" hreflang="en">Creating a signed .ipa for Xamarin apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/resigning-an-ipa/" title="Signing an .ipa with multiple code signing identities" hreflang="en">Signing an .ipa with multiple code signing identities</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/ionic-cordova-code-signing/" title="Code signing with Ionic and Cordova projects" hreflang="en">Code signing with Ionic and Cordova projects</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/protecting-your-code-signing-files/" title="Protecting your code signing files" hreflang="en">Protecting your code signing files</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/generating-code-signing-files/" title="Generating code signing files" hreflang="en">Generating code signing files</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/exporting-code-signing-files/" title="Exporting code signing files without codesigndoc" hreflang="en">Exporting code signing files without codesigndoc</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/code-signing-ios-frameworks/" title="Code signing iOS frameworks" hreflang="en">Code signing iOS frameworks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/code-signing/ios-code-signing/ios-code-signing-troubleshooting/" title="iOS code signing - troubleshooting" hreflang="en">iOS code signing - troubleshooting</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-9" onclick="toggleMenuListOpener(event)" href="/testing/testing-index/" hreflang="en">Testing</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/test-reports/" title="Test Reports" hreflang="en">Test Reports</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/exporting-to-test-reports-from-custom-script-steps/" title="Exporting to Test Reports from custom Script Steps" hreflang="en">Exporting to Test Reports from custom Script Steps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/running-xcode-tests/" title="Running Xcode tests" hreflang="en">Running Xcode tests</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/registering-a-test-device/" title="Registering a test device" hreflang="en">Registering a test device</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/device-testing-for-ios/" title="Device testing for iOS" hreflang="en">Device testing for iOS</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/android-run-a-unit-test/" title="Android unit test" hreflang="en">Android unit test</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/device-testing-for-android/" title="Device testing for Android" hreflang="en">Device testing for Android</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/run-your-tests-in-the-app-center/" title="Running tests in the Visual Studio App Center" hreflang="en">Running tests in the Visual Studio App Center</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/testing/running-detox-tests-on-bitrise/" title="Running Detox tests on Bitrise" hreflang="en">Running Detox tests on Bitrise</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-10" onclick="toggleMenuListOpener(event)" href="/deploy/deployment-index/" hreflang="en">Deployment</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/deploy/android-deploy/android-deployment-index/" hreflang="en">Android deployment</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/android-deploy/deploying-android-apps/" title="Deploying Android apps" hreflang="en">Deploying Android apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/android-deploy/generate-and-deploy-multiple-flavor-apks-in-a-single-workflow/" title="Generating and deploying multiple flavor APKs in a single build" hreflang="en">Generating and deploying multiple flavor APKs in a single build</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/android-deploy/generating-and-deploying-android-app-bundles/" title="Generating and deploying Android app bundles " hreflang="en">Generating and deploying Android app bundles </a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/deploy/ios-deploy/ios-deploy-index/" hreflang="en">iOS deployment</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/ios-deploy/deploying-an-ios-app-to-bitrise-io/" title="Deploying an iOS app to Bitrise.io" hreflang="en">Deploying an iOS app to Bitrise.io</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/ios-deploy/deploying-an-ios-app-for-external-testing/" title="Deploying an iOS app for external testing" hreflang="en">Deploying an iOS app for external testing</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/ios-deploy/deploying-an-ios-app-to-itunes-connect/" title="Deploying an iOS app to iTunes Connect" hreflang="en">Deploying an iOS app to iTunes Connect</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/ios-deploy/deploying-an-ios-app-for-simulators/" title="Deploying an iOS app for simulators" hreflang="en">Deploying an iOS app for simulators</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/ship/" title="Deploying with Ship" hreflang="en">Deploying with Ship</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/bitrise-app-deployment/" title="Bitrise OTA App Deployment" hreflang="en">Bitrise OTA App Deployment</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/deploy-apps-to-applivery-from-bitrise/" title="Deploying apps to Applivery" hreflang="en">Deploying apps to Applivery</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/deploy-apps-to-deploygate-from-bitrise/" title="Deploying apps to DeployGate" hreflang="en">Deploying apps to DeployGate</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/publish-your-app-to-appaloosa/" title="Deploying your apps to Appaloosa" hreflang="en">Deploying your apps to Appaloosa</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/deploy/deploy-to-testfairy-with-bitrise/" title="Deploying apps to TestFairy" hreflang="en">Deploying apps to TestFairy</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-11" onclick="toggleMenuListOpener(event)" href="/bitrise-cli/index/" hreflang="en">Bitrise CLI</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/installation/" title="Installing and updating the Bitrise CLI" hreflang="en">Installing and updating the Bitrise CLI</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/most-important-concepts/" title="Most important concepts" hreflang="en">Most important concepts</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/initializing-a-bitrise-project-locally/" title="Initializing a Bitrise project locally" hreflang="en">Initializing a Bitrise project locally</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/basics-of-bitrise-yml/" title="Basics of bitrise.yml" hreflang="en">Basics of bitrise.yml</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/offline-workflow-editor/" title="Installing and upgrading the offline Workflow Editor" hreflang="en">Installing and upgrading the offline Workflow Editor</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/customizing-bitrise-yml/" title="Customizing bitrise.yml" hreflang="en">Customizing bitrise.yml</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/workflows/" title="Workflows in YAML" hreflang="en">Workflows in YAML</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/steps/" title="Steps in YAML" hreflang="en">Steps in YAML</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/run-your-first-build/" title="Running your first local build" hreflang="en">Running your first local build</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/step-properties/" title="Step properties" hreflang="en">Step properties</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/step-inputs/" title="Step inputs" hreflang="en">Step inputs</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/step-outputs/" title="Step outputs" hreflang="en">Step outputs</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/step-timeout/" title="Setting a time limit for Steps" hreflang="en">Setting a time limit for Steps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/bitrise-cli/secrets/" title="Secrets" hreflang="en">Secrets</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-12" onclick="toggleMenuListOpener(event)" href="/tutorials/tutorials-index/" hreflang="en">Tutorials</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/tutorials/docker/docker-index/" hreflang="en">Docker</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/docker/run-your-build-locally-in-docker/" title="How to run your build locally in Docker" hreflang="en">How to run your build locally in Docker</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/docker/use-your-own-docker-image/" title="Use your own Docker image" hreflang="en">Use your own Docker image</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/tutorials/fastlane/fastlane-index/" hreflang="en">Fastlane</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/fastlane/fastlane-tools-integration/" title="fastlane tools integration" hreflang="en">fastlane tools integration</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/fastlane/how-to-configure-fastlane-match-for-bitrise/" title="How to configure fastlane match for Bitrise" hreflang="en">How to configure fastlane match for Bitrise</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener" onclick="toggleMenuListOpener(event)" href="/tutorials/xamarin/index/" hreflang="en">Xamarin</a>
+		  
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/xamarin/restore-nuget-packages/" title="Restore NuGet packages" hreflang="en">Restore NuGet packages</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/xamarin/add-custom-sources-to-nuget/" title="Add custom sources to NuGet" hreflang="en">Add custom sources to NuGet</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/xamarin/deploy-your-xamarin-app/" title="Deploy your Xamarin app" hreflang="en">Deploy your Xamarin app</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/creating-white-label-app-versions/" title="Creating white label app versions" hreflang="en">Creating white label app versions</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/community-created/" title="Community Created Tutorials" hreflang="en">Community Created Tutorials</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/how-to-use-the-generic-file-storage/" title="Using the Generic File Storage" hreflang="en">Using the Generic File Storage</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/download-or-replace-project-resources/" title="Downloading or replacing project resources" hreflang="en">Downloading or replacing project resources</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/vpn-configuration/" title="Configuring and connecting to your VPN" hreflang="en">Configuring and connecting to your VPN</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/hipchat-message/" title="HipChat message with build status and details" hreflang="en">HipChat message with build status and details</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/auto-deploy-middleman-project/" title="Deploying your Middleman website with Bitrise" hreflang="en">Deploying your Middleman website with Bitrise</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tutorials/build-with-fake/" title="Building with FAKE (F# Make)" hreflang="en">Building with FAKE (F# Make)</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-13" onclick="toggleMenuListOpener(event)" href="/tips-and-tricks/tips-and-tricks-index/" hreflang="en">Tips and tricks</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/android-tips-and-tricks/" title="Android tips and tricks" hreflang="en">Android tips and tricks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/screen-recording-your-ui-tests-with-appium/" title="Screen recording your UI tests with Appium" hreflang="en">Screen recording your UI tests with Appium</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/screen-recording-of-android-ui-tests-with-script-steps/" title="Screen recording of Android UI tests with Script Step" hreflang="en">Screen recording of Android UI tests with Script Step</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/attach-any-file-to-build/" title="Attaching files as artifacts to a build" hreflang="en">Attaching files as artifacts to a build</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/expose-environment-variable/" title="Exposing Env Vars and using them in another Step" hreflang="en">Exposing Env Vars and using them in another Step</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/dont-mark-build-failed-if-step-fails/" title="Don't mark the Build as failed if a given step would fail (ignore the error of the Step)" hreflang="en">Don't mark the Build as failed if a given step would fail (ignore the error of the Step)</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/install-additional-tools/" title="Installing any additional tools" hreflang="en">Installing any additional tools</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/optimize-your-build-times/" title="Optimizing your build times" hreflang="en">Optimizing your build times</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/use-bitrise-yml-from-repository/" title="Using the bitrise.yml from repository" hreflang="en">Using the bitrise.yml from repository</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/tips-and-tricks/increasing-the-size-limit-of-env-vars/" title="Increasing the size limit of Env Vars" hreflang="en">Increasing the size limit of Env Vars</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-14" onclick="toggleMenuListOpener(event)" href="/faq/faq-index/" hreflang="en">FAQ</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/grant-access-to-github-organization/" title="How to grant Bitrise access to a GitHub Organization?" hreflang="en">How to grant Bitrise access to a GitHub Organization?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/how-to-generate-ssh-keypair/" title="How can I generate an SSH key pair?" hreflang="en">How can I generate an SSH key pair?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/grant-access-to-bitbucket-team/" title="How can I grant Bitrise access to a Bitbucket team?" hreflang="en">How can I grant Bitrise access to a Bitbucket team?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/i-cant-see-my-github-organization-repository-on-the-add-new-app-page/" title="Why can't I see my GitHub organization / repository on the Add New App page?" hreflang="en">Why can't I see my GitHub organization / repository on the Add New App page?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/why-my-build-takes-longer-on-bitrise-than-on-my-mac/" title="Why does my build take longer on Bitrise than on my machine?" hreflang="en">Why does my build take longer on Bitrise than on my machine?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/should-i-commit-my-dependencies-into-my-repository/" title="Should I commit my dependencies into my repository?" hreflang="en">Should I commit my dependencies into my repository?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/no-builds-are-triggered-automatically/" title="Why isn't a build triggered when I push code into the repository?" hreflang="en">Why isn't a build triggered when I push code into the repository?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/how-can-i-git-checkout-from-a-detached-head-state/" title="How can I git checkout from a detached head state?" hreflang="en">How can I git checkout from a detached head state?</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/organization-faq/" title="Organization FAQ" hreflang="en">Organization FAQ</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/faq/invitation-faq/" title="Invitation FAQ" hreflang="en">Invitation FAQ</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-15" onclick="toggleMenuListOpener(event)" href="/troubleshooting/troubleshooting-index/" hreflang="en">Troubleshooting</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/resetting-your-password/" title="Resetting your password" hreflang="en">Resetting your password</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/debugging-your-build-on-your-own-machine/" title="Debugging your build on your own machine" hreflang="en">Debugging your build on your own machine</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/enabling-bitrise-support-user/" title="Enabling the Bitrise Support user for your app" hreflang="en">Enabling the Bitrise Support user for your app</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/workflow-editor-doesnt-load/" title="Workflow Editor doesn't load" hreflang="en">Workflow Editor doesn't load</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/frequent-android-issues/" title="Frequent Android issues" hreflang="en">Frequent Android issues</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/trigger-doesnt-work/" title="Build Trigger does not work" hreflang="en">Build Trigger does not work</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/github-pull-request-status-troubleshooting/" title="Build status indicator on GitHub/GitLab/Bitbucket does not work" hreflang="en">Build status indicator on GitHub/GitLab/Bitbucket does not work</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/frequent-ios-issues/" title="Frequent iOS issues" hreflang="en">Frequent iOS issues</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/known-xcode-issues/" title="List of known Xcode issues" hreflang="en">List of known Xcode issues</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/troubleshooting/no-activity-summaries-found-for-test-with-danger/" title="No activity summaries found for test with Danger" hreflang="en">No activity summaries found for test with Danger</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a class="menu-list-opener-16" onclick="toggleMenuListOpener(event)" href="/api/api-index/" hreflang="en">API</a>
+			
+		
+		
+			
+			
+<ol class="menu-list">
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/authentication/" title="Authentication" hreflang="en">Authentication</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/response-and-pagination/" title="Response and pagination" hreflang="en">Response and pagination</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/endpoints/" title="Endpoints and testing the API" hreflang="en">Endpoints and testing the API</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/adding-and-managing-apps/" title="Adding and managing apps" hreflang="en">Adding and managing apps</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/build-trigger/" title="Triggering and aborting builds" hreflang="en">Triggering and aborting builds</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/incoming-and-outgoing-webhooks/" title="Incoming and outgoing webhooks" hreflang="en">Incoming and outgoing webhooks</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/managing-ios-code-signing-files/" title="Managing iOS code signing files" hreflang="en">Managing iOS code signing files</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/managing-files-in-generic-file-storage/" title="Managing files in Generic File Storage" hreflang="en">Managing files in Generic File Storage</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/app-status-badge/" title="App Status Image/Badge API" hreflang="en">App Status Image/Badge API</a>
+			
+		
+		
+	</li>
+
+	<li class="menu-item">
+		
+			
+				<a href="/api/managing-build-artifacts/" title="Managing build artifacts" hreflang="en">Managing build artifacts</a>
+			
+		
+		
+	</li>
+
+</ol>
+
+
+		
+	</li>
+
+</ol>
+
+
+        </div>
+      </nav>
+      <main class="content">
+        
+          
+            <div class="title-with-source-edit">
+              <h1>Using the Trigger Map to trigger builds</h1>
+              <a class="material-icon" href="https://github.com/bitrise-io/devcenter/blob/master/_articles/en/builds/triggering-builds/trigger-map.md" target="_blank"></a>
+            </div>
+          
+        
+        <p>When you register a webhook for an event or for multiple events (for example, for <code class="highlighter-rouge">code push</code> and for <code class="highlighter-rouge">pull request</code> events), your source code hosting service will call the webhook every time the related event happens.</p>
+
+<p>On <a href="https://www.bitrise.io">bitrise.io</a> these webhook calls are called triggers, and can be mapped to different <strong>Workflows</strong>, or not mapped at all. If you don’t map a trigger to any workflow, then <a href="https://www.bitrise.io">bitrise.io</a> won’t start a build. If you map it to a workflow, then a build will be started with the selected workflow.</p>
+
+<p>In the following examples, we’ll use a very simple Bitrise configuration (<code class="highlighter-rouge">bitrise.yml</code>),
+which does nothing else just prints the selected workflow’s ID:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">format_version</span><span class="pi">:</span> <span class="s">1.3.0</span>
+<span class="na">default_step_lib_source</span><span class="pi">:</span> <span class="s">https://github.com/bitrise-io/bitrise-steplib.git</span>
+<span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">pull_request_source_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">tag</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="na">workflows</span><span class="pi">:</span>
+  <span class="na">primary</span><span class="pi">:</span>
+    <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">script</span><span class="pi">:</span>
+        <span class="na">inputs</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">content</span><span class="pi">:</span> <span class="pi">|-</span>
+            <span class="no">#!/bin/bash</span>
+            <span class="no">echo "$BITRISE_TRIGGERED_WORKFLOW_ID"</span>
+</code></pre></div></div>
+
+<div class="message-box info">
+<div class="message-title">
+    <p>What is <code class="highlighter-rouge">bitrise.yml</code></p>
+  </div>
+
+<div class="message-content">
+    <p><code class="highlighter-rouge">bitrise.yml</code> is the representation of your app’s configuration. In the Workflow Editor, you can edit it in a visual way through the web UI, but you can always switch to <code class="highlighter-rouge">bitrise.yml</code> mode (left side of the Workflow Editor) to see the configuration in a YAML format, as well as you can edit the configuration in YAML format too. It’s up to you which solution you prefer, the visual web UI or the YAML (<code class="highlighter-rouge">bitrise.yml</code>) representation, and you can switch between the two any time (the changes you do in the web UI will be reflected in the <code class="highlighter-rouge">bitrise.yml</code>, and vice versa).</p>
+
+  </div>
+</div>
+
+<p>The above example <code class="highlighter-rouge">bitrise.yml</code> will select the <strong>primary</strong> branch for every code push (<code class="highlighter-rouge">push_branch: "*"</code>), tag push (<code class="highlighter-rouge">tag: "*"</code>)
+and for every pull request (<code class="highlighter-rouge">pull_request_target_branch: "*"</code> &amp; <code class="highlighter-rouge">pull_request_source_branch: "*"</code>).</p>
+
+<p>If you remove the pull request item from the <code class="highlighter-rouge">trigger_map</code> list, then no pull request will trigger a build anymore. Example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This configuration will start a build with the <strong>primary</strong> Workflow for every code push, but for nothing else (for example not for pull requests).</p>
+
+<h2 id="components-of-the-trigger_map">Components of the <code class="highlighter-rouge">trigger_map</code> <a href="#components-of-the-trigger_map" class="anchor-symbol">⚓</a></h2>
+
+<p>A <code class="highlighter-rouge">trigger_map</code> is a list of filters, and the <code class="highlighter-rouge">workflow</code> is the given filters it should select in case of a matching trigger.</p>
+
+<p>Every filter item has to include at least one condition!</p>
+
+<p>This means that you can’t have an item which only specifies the <code class="highlighter-rouge">workflow</code>,
+at least one filter (<code class="highlighter-rouge">push_branch</code> / <code class="highlighter-rouge">pull_request_source_branch</code> / <code class="highlighter-rouge">pull_request_target_branch</code> / <code class="highlighter-rouge">tag</code>) has to be specified!</p>
+
+<h3 id="the-available-filters">The available filters: <a href="#the-available-filters" class="anchor-symbol">⚓</a></h3>
+
+<ul>
+  <li><code class="highlighter-rouge">push_branch</code> : A filter which is matched against code push events’ branch parameter.</li>
+  <li><code class="highlighter-rouge">pull_request_source_branch</code> : A filter which is matched against Pull Request events’ source branch
+parameter (the branch the pull request was started from).</li>
+  <li><code class="highlighter-rouge">pull_request_target_branch</code> : A filter which is matched against Pull Request events’ target branch
+parameter - the branch the pull request will be merged into.</li>
+  <li><code class="highlighter-rouge">tag</code> : A filter which is matched against Tag Push events’ tag (name) parameter.</li>
+  <li><code class="highlighter-rouge">pattern</code> : DEPRECATED - this filter was used for both code push and pull request events,
+in combination with <code class="highlighter-rouge">is_pull_request_allowed</code>. This filter is now deprecated,
+as the new filters allow better control over event mapping.</li>
+</ul>
+
+<p>If you define multiple filters in a single item then all filters have to match in order to select that item’s workflow.
+For example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>trigger_map:
+- pull_request_target_branch: "master"
+  pull_request_source_branch: "develop"
+  workflow: primary
+</code></pre></div></div>
+
+<p>This will only select the <code class="highlighter-rouge">primary</code> workflow if the pull request’s source branch is <code class="highlighter-rouge">develop</code> AND the target branch is <code class="highlighter-rouge">master</code>.</p>
+
+<p>If you want to specify filters which should be treated separately, for example, to select <code class="highlighter-rouge">primary</code> for pull requests where the source is <code class="highlighter-rouge">develop</code>, as well as select for the ones which target <code class="highlighter-rouge">master</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>trigger_map:
+- pull_request_target_branch: "master"
+  workflow: primary
+- pull_request_source_branch: "develop"
+  workflow: primary
+</code></pre></div></div>
+
+<p>One last note, which is hopefully not surprising after the previous example: You can’t mix and match <code class="highlighter-rouge">push_branch</code>, <code class="highlighter-rouge">tag</code> and the <code class="highlighter-rouge">pull_request</code> filters in the same item. This would effectively mean that the workflow should be selected if the event is a code push and a pull request (or tag push) event at the same time. This is simply not possible, source code hosting services send separate webhooks for pull request (pre-merge state), tags and for code push events. A single webhook event will never be code push, tag push and pull request at the same time, a single webhook is always related to only one type (code push, tag push or pull request).</p>
+
+<h2 id="one-trigger--one-build">One trigger = one build <a href="#one-trigger--one-build" class="anchor-symbol">⚓</a></h2>
+
+<p>One trigger can only select a single workflow / can only start a single build. The first item which matches the trigger will select the workflow for the build!</p>
+
+<p>If you want to run more than one workflow, you can <a href="/bitrise-cli/workflows/#chaining-workflows-and-reusing-workflows">chain workflows</a> after each other. The workflows chained this way won’t run in parallel, but the full chain of workflows will be executed, in the order you chain them.</p>
+
+<p>The order of the items also matter: if you’d specify a <code class="highlighter-rouge">push_branch: master</code> item after a <code class="highlighter-rouge">push_branch: "*"</code> item, the <code class="highlighter-rouge">push_branch: master</code> would never be selected as every code push event would match <code class="highlighter-rouge">push_branch: "*"</code> first, and the first item which matches the trigger will select the workflow for the build!</p>
+
+<h2 id="how-to-build-only-a-single-branch">How to build only a single branch <a href="#how-to-build-only-a-single-branch" class="anchor-symbol">⚓</a></h2>
+
+<p>If you want to build only a single branch, for every code push, but for nothing else (no push to any other branch should trigger a build, nor any pull request or tag), then all you have to do is to specify a <code class="highlighter-rouge">trigger_map</code> which does not map anything else to any workflow, only the branch you want to build.</p>
+
+<p>For example, if you only want to build the <code class="highlighter-rouge">master</code> branch on code push:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>Or if you only want to build <code class="highlighter-rouge">feature/</code> branches:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">feature/*</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>Or the two together:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">feature/*</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This configuration will start a build for every code push which happens on either <code class="highlighter-rouge">master</code> or on a <code class="highlighter-rouge">feature/</code> branch, and will use the same workflow for both (<code class="highlighter-rouge">primary</code>).</p>
+
+<p>If you want to use a different workflow for your <code class="highlighter-rouge">master</code> branch, then all you have to do is to change the <code class="highlighter-rouge">workflow:</code> for that trigger map item:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">feature/*</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This configuration will use the workflow <code class="highlighter-rouge">deploy</code> for every code push on <code class="highlighter-rouge">master</code>, and the workflow <code class="highlighter-rouge">primary</code> for every code push on <code class="highlighter-rouge">feature/</code> branches, and will not start a build for anything else.</p>
+
+<h2 id="a-very-simple-two-workflow-cicd-setup">A very simple, two-workflow CI/CD setup <a href="#a-very-simple-two-workflow-cicd-setup" class="anchor-symbol">⚓</a></h2>
+
+<p>A base CI/CD setup involves two workflows: one for integration tests and one for distribution.</p>
+
+<p>If you have a workflow <code class="highlighter-rouge">primary</code> for doing the integration tests, and <code class="highlighter-rouge">deploy</code> to do the deployment / distribution, and you want to
+run the integration test for code pushes and pull requests on every branch except the <code class="highlighter-rouge">master</code> branch, which should instead use the <code class="highlighter-rouge">deploy</code> workflow:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<div class="message-box warning">
+<div class="message-title">
+    <p>Order of the items matter!</p>
+  </div>
+
+<div class="message-content">
+    <p>When <code class="highlighter-rouge">bitrise</code> receives a webhook event (any kind), it’ll match it against the app’s <code class="highlighter-rouge">trigger_map</code>. The first item it matches will select the workflow for the build!</p>
+
+    <p>This means that if you’d specify the <code class="highlighter-rouge">push_branch: master</code> after the <code class="highlighter-rouge">push_branch: *</code> item, <code class="highlighter-rouge">master</code> would never be selected as every code push event would match <code class="highlighter-rouge">push_branch: *</code> first!</p>
+
+  </div>
+</div>
+
+<h2 id="dont-start-two-builds-for-pull-requests-from-the-same-repository">Don’t start two builds for pull requests from the same repository <a href="#dont-start-two-builds-for-pull-requests-from-the-same-repository" class="anchor-symbol">⚓</a></h2>
+
+<p>When you start a pull request from the same repository (not from a fork, just from a branch of the repository), the source code hosting service will send two webhooks, one for the code push and one for the pull request!</p>
+
+<div class="message-box important">
+<div class="message-title">
+    <p>Pull Request build</p>
+  </div>
+
+<div class="message-content">
+    <p>Although it might seem like both builds are the same, it most likely isn’t! The code push event / build builds the code of the branch, without any merging, etc. It builds the exact same state of the code what you have when you checkout that branch. The pull request build on the other hand builds a pre-merged state of the code. This pre-merged state is not the final merged version of the code, it only represents a clone of how the code will look like after you merged the pull request.</p>
+
+  </div>
+</div>
+
+<p>Whether you want to build both or just one of these in case of a pull request is up to you and depends on your project’s requirements, but with Bitrise you can decide whether you want it or not.</p>
+
+<div class="message-box note">
+<div class="message-title">
+    <p>Pull Request merge is a Code Push</p>
+  </div>
+
+<div class="message-content">
+    <p>Source code hosting services treat the event of merge as a code push event. For example, if you merge a pull request from <code class="highlighter-rouge">feature/a</code> into <code class="highlighter-rouge">master</code>, when you merge the PR it will generate a code push to <code class="highlighter-rouge">master</code>.</p>
+
+  </div>
+</div>
+
+<p>An example to build only the pull request (pre-merged) events/state, in addition to deploying <code class="highlighter-rouge">master</code>:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>Or if you don’t want to start a build for pull requests, only for code push events:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<h2 id="three-workflows-test-deploy-to-staging-and-deploy-to-production">Three workflows: test, deploy to staging and deploy to production <a href="#three-workflows-test-deploy-to-staging-and-deploy-to-production" class="anchor-symbol">⚓</a></h2>
+
+<p>Another common CI/CD pattern is to have three workflows:</p>
+
+<ul>
+  <li>A Test workflow, which will run for every pull request, every code push on <code class="highlighter-rouge">feature/</code> branches etc.,
+to test whether the test can be integrated into a release (branch).</li>
+  <li>A Staging deployment workflow, to deploy the app/code to an internal/testing system. Examples:
+    <ul>
+      <li>In the case of an iOS app, this can be, for example, an ad hoc signed IPA deployed to HockeyApp, where your tester team can download and test it, or a deploy to iTunes Connect / TestFlight for internal testing.</li>
+      <li>In the case of an Android app, this can be a deploy to Google Play to a beta track.</li>
+      <li>In the case of a server code, this can be a deploy to, for example, a staging Heroku server.</li>
+    </ul>
+  </li>
+  <li>A Production deployment workflow, to deploy the app/code into production. Examples:
+    <ul>
+      <li>In the case of an iOS app, this can be an App Store signed IPA deployed to iTunes Connect/TestFlight,
+enabled for “external testing”.</li>
+      <li>In the case of an Android app, this can be a deploy to Google Play as a public update of the app.</li>
+      <li>In the case of a server code, this can be a deploy to, for example, the production Heroku server.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>So, we have three workflows (<code class="highlighter-rouge">primary</code> (test), <code class="highlighter-rouge">deploy-to-staging</code> and <code class="highlighter-rouge">deploy-to-production</code>) and we’ll specify three triggers, to select the right workflow for the right trigger.</p>
+
+<p>There are two similar approaches, depending whether you prefer tags of branches for
+production deployment:</p>
+
+<h3 id="using-tags-to-trigger-the-production-deployment">Using Tags to trigger the production deployment <a href="#using-tags-to-trigger-the-production-deployment" class="anchor-symbol">⚓</a></h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">tag</span><span class="pi">:</span> <span class="s">v*.*.*</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy-to-production</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy-to-staging</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This trigger map configuration will trigger a build:</p>
+
+<ul>
+  <li>With the <code class="highlighter-rouge">deploy-to-production</code> workflow if a new tag (with the format <code class="highlighter-rouge">v*.*.*</code>,  <code class="highlighter-rouge">v1.0.0</code>) is pushed.</li>
+  <li>With the <code class="highlighter-rouge">deploy-to-staging</code> workflow if a code push happens on the <code class="highlighter-rouge">master</code> branch (for example, a pull request is merged into the <code class="highlighter-rouge">master</code> branch).</li>
+  <li>With the <code class="highlighter-rouge">primary</code> workflow for any other branch and for pull requests.</li>
+</ul>
+
+<h3 id="using-a-branch-to-trigger-the-production-deployment">Using a Branch to trigger the production deployment <a href="#using-a-branch-to-trigger-the-production-deployment" class="anchor-symbol">⚓</a></h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy-to-production</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s">develop</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">deploy-to-staging</span>
+<span class="pi">-</span> <span class="na">push_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This trigger map configuration will trigger a build:</p>
+
+<ul>
+  <li>With the <code class="highlighter-rouge">deploy-to-production</code> workflow if a code push happens on the <code class="highlighter-rouge">master</code> branch (for example, a git flow release branch merged into <code class="highlighter-rouge">master</code>).</li>
+  <li>With the <code class="highlighter-rouge">deploy-to-staging</code> workflow if a code push happens on the <code class="highlighter-rouge">develop</code> branch (for example, a pull request is merged into the <code class="highlighter-rouge">develop</code> branch).</li>
+  <li>With the <code class="highlighter-rouge">primary</code> workflow for any other branch and for pull requests.</li>
+</ul>
+
+<h2 id="how-to-build-only-pull-requests">How to build only pull requests <a href="#how-to-build-only-pull-requests" class="anchor-symbol">⚓</a></h2>
+
+<p>If all you want is to run integration tests for pull requests, and you don’t want to do anything else, then you can use a trigger map configuration like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<p>This will select the <code class="highlighter-rouge">primary</code> workflow for every and any pull request, and will not start a build for anything else.</p>
+
+<p>If you’d only want to build pull requests which are targeted to be merged into <code class="highlighter-rouge">master</code>, the configuration would look like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger_map</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">pull_request_target_branch</span><span class="pi">:</span> <span class="s">master</span>
+  <span class="na">workflow</span><span class="pi">:</span> <span class="s">primary</span>
+</code></pre></div></div>
+
+<div class="banner">
+<img src="/assets/images/banner-bg-888x170.png" style="border: none;" />
+<div class="deploy-text">Map a trigger to kickstart a build</div>
+<a target="_blank" href="https://app.bitrise.io/dashboard/builds"><button class="button">Go to your app</button></a>
+</div>
+
+        
+
+
+
+
+
+
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+    
+      
+        <div class="related-articles"><span>Related articles</span></div>
+      
+      <div class="container">
+        <a href="/api/build-trigger/">
+          <div class="article-box">
+            <span class="related-title">Triggering and aborting builds</span>
+            <p>You can trigger and abort builds with the Bitrise API. Define parameters for the build: for example, branch, tag or git commit to use. Custom environment variables can be defined...</p>
+          </div>
+        </a>
+      </div>
+      
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+    
+      
+      <div class="container">
+        <a href="/builds/rolling-builds/">
+          <div class="article-box">
+            <span class="related-title">Rolling builds</span>
+            <p>You can cancel running builds or builds on hold automatically. If you turn on the Rolling Builds feature, the previous builds of your app can be automatically aborted once a...</p>
+          </div>
+        </a>
+      </div>
+      
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+    
+      
+      <div class="container">
+        <a href="/builds/triggering-builds/skipping-a-given-commit-or-pull-request/">
+          <div class="article-box">
+            <span class="related-title">Skipping a given commit or Pull Request</span>
+            <p>If you need to, you can skip a specific commit or pull request. Skipping means, in this context, that a code change will NOT trigger a build on Bitrise, even...</p>
+          </div>
+        </a>
+      </div>
+      
+    
+
+  
+
+    
+    
+
+    
+    
+
+  
+
+    
+    
+
+    
+    
+    
+      
+      <div class="container">
+        <a href="/builds/triggering-builds/approving-pull-request-builds/">
+          <div class="article-box">
+            <span class="related-title">Approving Pull Request builds</span>
+            <p>You have the option to require approval for a Pull Request build before it can start. For public apps, this is mandatory; for private apps, it is turned on by...</p>
+          </div>
+        </a>
+      </div>
+      
+        
+
+        <div class="banner">
+          
+        </div>
+      </main>
+      
+      
+        <nav id="my-toc">
+          <ul class="side-toc">
+  <li class="toc-entry toc-h2"><a href="#components-of-the-trigger_map">Components of the <code class="highlighter-rouge">trigger_map</code></a>
+    <ul>
+      <li class="toc-entry toc-h3"><a href="#the-available-filters">The available filters:</a></li>
+    </ul>
+  </li>
+  <li class="toc-entry toc-h2"><a href="#one-trigger--one-build">One trigger = one build</a></li>
+  <li class="toc-entry toc-h2"><a href="#how-to-build-only-a-single-branch">How to build only a single branch</a></li>
+  <li class="toc-entry toc-h2"><a href="#a-very-simple-two-workflow-cicd-setup">A very simple, two-workflow CI/CD setup</a></li>
+  <li class="toc-entry toc-h2"><a href="#dont-start-two-builds-for-pull-requests-from-the-same-repository">Don’t start two builds for pull requests from the same repository</a></li>
+  <li class="toc-entry toc-h2"><a href="#three-workflows-test-deploy-to-staging-and-deploy-to-production">Three workflows: test, deploy to staging and deploy to production</a>
+    <ul>
+      <li class="toc-entry toc-h3"><a href="#using-tags-to-trigger-the-production-deployment">Using Tags to trigger the production deployment</a></li>
+      <li class="toc-entry toc-h3"><a href="#using-a-branch-to-trigger-the-production-deployment">Using a Branch to trigger the production deployment</a></li>
+    </ul>
+  </li>
+  <li class="toc-entry toc-h2"><a href="#how-to-build-only-pull-requests">How to build only pull requests</a></li>
+</ul>
+
+        </nav>
+      
+    </div>
+    <footer>
+      <div class="middle-aligner">
+        <div class="meta">
+          Copyright © 2014 - 2020 Bitrise Ltd. <br />
+          <em>Powered by <a href="https://jekyllrb.com/">Jekyll</a></em>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-53276411-1","auto"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+  <script src="/assets/javascripts/list-collapse.js"></script>
+  <script src="/assets/javascripts/search-input.js"></script>
+  <script src="/assets/javascripts/side-menu.js"></script>
+  <script src="/assets/javascripts/code-collapse.js"></script>
+</html>
